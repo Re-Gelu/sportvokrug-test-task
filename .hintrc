@@ -1,0 +1,9 @@
+{
+  "extends": ["development"],
+  "hints": {
+    "no-inline-styles": "off",
+    "typescript-config/is-valid": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "off"
+  }
+}
