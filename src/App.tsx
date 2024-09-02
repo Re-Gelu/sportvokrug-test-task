@@ -2,6 +2,7 @@ import { VideostandEventResponse } from "@/shared/api";
 import configuration from "@/shared/configuration";
 import { ActiveEventScreen, Clock, CountdownEventScreen } from "@/widgets";
 import { gql, useQuery } from "@apollo/client";
+import { Loader } from "@mantine/core";
 
 function App() {
   const { loading, error, data } = useQuery<VideostandEventResponse>(
@@ -31,12 +32,13 @@ function App() {
     }
   );
 
-  /*   const data = testData; */
+  if (loading) return <Loader size={100} />;
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
-
-  if (!data || data?.videostandEvents.current_and_upcoming.length === 0) {
+  if (
+    !data ||
+    error ||
+    data?.videostandEvents.current_and_upcoming.length === 0
+  ) {
     return <Clock />;
   }
 
@@ -48,12 +50,11 @@ function App() {
     );
   });
 
-  const currentEvent =
-    data.videostandEvents.current_and_upcoming.find(
-      (event) =>
-        new Date(event.dt_start) <= currentDate &&
-        new Date(event.dt_end) >= currentDate
-    ) || null;
+  const currentEvent = data.videostandEvents.current_and_upcoming.find(
+    (event) =>
+      new Date(event.dt_start) <= currentDate &&
+      new Date(event.dt_end) >= currentDate
+  );
 
   const upcomingEvent =
     currentEvent ||
@@ -87,8 +88,8 @@ const testData = {
         __typename: "VideostandEvent", // 2
         title: "Чемпионат Москвы",
         is_main: false,
-        dt_start: "2024-09-02T10:00:00+03:00",
-        dt_end: "2024-09-03T23:59:00+03:00",
+        dt_start: "2024-09-04T10:00:00+03:00",
+        dt_end: "2024-09-06T23:59:00+03:00",
         dt_create: "2024-01-31T02:39:01+03:00",
       },
       /* {

@@ -31,24 +31,26 @@ export function Clock(props: PaperProps) {
       bg="var(--mantine-primary-color-light)"
       {...props}
     >
-      <Text fz={96} ta="center">
-        {padTo2Digits(date.getHours())}
-        {":"}
-        {padTo2Digits(date.getMinutes())}
-      </Text>
+      <Stack gap={0} px="xl">
+        <Text fz={96} ta="center">
+          {padTo2Digits(date.getHours())}
+          {":"}
+          {padTo2Digits(date.getMinutes())}
+        </Text>
 
-      <Divider size="md" mb="md" />
+        <Divider size="md" mb="md" />
 
-      <Text fz={38} ta="center">
-        {date.toLocaleDateString(configuration.LOCALE, {
-          month: "long",
-          day: "numeric",
-        })}
-      </Text>
+        <Text fz={38} ta="center">
+          {date.toLocaleDateString(configuration.LOCALE, {
+            month: "long",
+            day: "numeric",
+          })}
+        </Text>
 
-      <Text fz={38} ta="center" mb="md">
-        {date.toLocaleString(configuration.LOCALE, { weekday: "long" })}
-      </Text>
+        <Text fz={38} ta="center" mb="md">
+          {date.toLocaleString(configuration.LOCALE, { weekday: "long" })}
+        </Text>
+      </Stack>
     </Paper>
   );
 }
