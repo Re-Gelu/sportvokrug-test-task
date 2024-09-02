@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 
+import { RingProgress } from "@/features/ring-progress";
 import { Group, GroupProps } from "@mantine/core";
-
-import { RingProgress } from "../features/ring-progress";
 
 const defaultRingProgressProps = {
   size: 160,

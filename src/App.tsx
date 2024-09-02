@@ -77,7 +77,7 @@ const testData = {
       {
         __typename: "VideostandEvent", // 2
         title: "Чемпионат Москвы",
-        is_main: false,
+        is_main: true,
         dt_start: "2024-09-04T10:00:00+03:00",
         dt_end: "2024-09-06T23:59:00+03:00",
         dt_create: "2024-01-31T02:39:01+03:00",
