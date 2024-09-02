@@ -9,7 +9,7 @@ export type NextEventInfoProps = {
 export function NextEventInfo({ event, ...props }: NextEventInfoProps) {
   return (
     <Stack {...props}>
-      <Text c="dimmed" ta="center">
+      <Text c="dimmed" fz="lg" ta="center">
         {formatEventDate(new Date(event.dt_start), new Date(event.dt_end))}
       </Text>
 

@@ -1,4 +1,12 @@
-import { Clock } from "@/features";
+import {
+  Clock,
+  findCurrentEvent,
+  findMainEvent,
+  findNextEvent,
+  findUpcomingEvent,
+  isEventActive,
+  sortEventsByStartDate,
+} from "@/features";
 import { VIDEOSTAND_EVENTS_QUERY, VideostandEventResponse } from "@/shared/api";
 import configuration from "@/shared/configuration";
 import { ActiveEventScreen, CountdownEventScreen } from "@/widgets";
@@ -6,15 +14,13 @@ import { useQuery } from "@apollo/client";
 import { Loader } from "@mantine/core";
 
 function App() {
-  const { loading, error } = useQuery<VideostandEventResponse>(
+  const { loading, error, data } = useQuery<VideostandEventResponse>(
     VIDEOSTAND_EVENTS_QUERY,
     {
       variables: { videostand_id: "6" },
       pollInterval: configuration.API_POLL_INTERVAL, // Обновление в “реальном времени”. Раз в N мс
     }
   );
-
-  const data = testData;
 
   if (loading) return <Loader size={100} />;
 
@@ -26,37 +32,37 @@ function App() {
     return <Clock />;
   }
 
-  const currentDate = new Date();
-
-  data.videostandEvents.current_and_upcoming.sort((event1, event2) => {
-    return (
-      new Date(event1.dt_start).getTime() - new Date(event2.dt_start).getTime()
-    );
-  });
-
-  const currentEvent = data.videostandEvents.current_and_upcoming.find(
-    (event) =>
-      new Date(event.dt_start) <= currentDate &&
-      new Date(event.dt_end) >= currentDate
+  const events = sortEventsByStartDate(
+    data.videostandEvents.current_and_upcoming
   );
 
-  const upcomingEvent =
-    currentEvent ||
-    data.videostandEvents.current_and_upcoming.find(
-      (event) => new Date(event.dt_start) > currentDate
-    );
+  // Находим ключевое событие (is_main)
+  const mainEvent = findMainEvent(events);
 
-  const nextEvent = upcomingEvent
-    ? data.videostandEvents.current_and_upcoming.find(
-        (event) => new Date(event.dt_start) > new Date(upcomingEvent.dt_start)
-      )
-    : null;
+  // Если ключевое событие активно, показываем его как текущее
+  if (mainEvent) {
+    const nextEvent = findNextEvent(events, mainEvent);
+
+    if (isEventActive(mainEvent)) {
+      return <ActiveEventScreen event={mainEvent} nextEvent={nextEvent} />;
+    } else {
+      return <CountdownEventScreen event={mainEvent} nextEvent={nextEvent} />;
+    }
+  }
+
+  // Если ключевого события нет, работаем с обычными событиями
+  const currentEvent = findCurrentEvent(events);
+  const upcomingEvent = currentEvent
+    ? findNextEvent(events, currentEvent)
+    : findUpcomingEvent(events);
 
   if (currentEvent) {
+    const nextEvent = findNextEvent(events, currentEvent);
     return <ActiveEventScreen event={currentEvent} nextEvent={nextEvent} />;
   }
 
   if (upcomingEvent) {
+    const nextEvent = findNextEvent(events, upcomingEvent);
     return <CountdownEventScreen event={upcomingEvent} nextEvent={nextEvent} />;
   }
 
@@ -76,14 +82,14 @@ const testData = {
         dt_end: "2024-09-06T23:59:00+03:00",
         dt_create: "2024-01-31T02:39:01+03:00",
       },
-      /*  {
+      {
         __typename: "VideostandEvent", // 1
         title: "Первенство Москвы",
-        is_main: true,
+        is_main: false,
         dt_start: "2024-08-30T10:00:00+03:00",
         dt_end: "2024-09-04T21:00:00+03:00",
         dt_create: "2024-01-24T05:56:29+03:00",
-      }, */
+      },
       {
         __typename: "VideostandEvent", // 3
         title:

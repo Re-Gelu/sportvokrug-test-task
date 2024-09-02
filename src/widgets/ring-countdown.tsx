@@ -39,7 +39,7 @@ export function RingCountdown({ targetDate, ...props }: RingCountdownProps) {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [targetDate]);
+  }, [targetDate, calculateTimeLeft]);
 
   const totalDays = Math.max(7, timeLeft.days || 0);
   const dayPercentage = ((timeLeft.days || 0) / totalDays) * 100;

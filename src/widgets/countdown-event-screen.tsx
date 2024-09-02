@@ -23,7 +23,7 @@ export function CountdownEventScreen({
 
       <Paper h="50%" bg="var(--mantine-primary-color-light)">
         <Stack h="100%" justify="center" align="center">
-          <Text c="dimmed" ta="center">
+          <Text c="dimmed" fz="lg" ta="center">
             {formatEventDate(new Date(event.dt_start), new Date(event.dt_end))}
           </Text>
 
