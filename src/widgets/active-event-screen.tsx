@@ -1,9 +1,7 @@
-import { formatEventDate } from "@/features";
+import { formatEventDate, NextEventInfo, SmallClock } from "@/features";
 import { VideostandEvent } from "@/shared/api";
 import { Button, Paper, Stack, Text, Title } from "@mantine/core";
-
-import { SmallClock } from "./clock";
-import { NextEventInfo } from "./next-event-info";
+import { IconClock } from "@tabler/icons-react";
 
 export type ActiveEventScreenProps = {
   event: VideostandEvent;
@@ -32,7 +30,12 @@ export function ActiveEventScreen({
             {event.title}
           </Title>
 
-          <Button color="teal" size="xl" mt="xl">
+          <Button
+            color="teal"
+            size="xl"
+            mt="xl"
+            rightSection={<IconClock size="1.5rem" stroke={2.5} />}
+          >
             ИДЁТ СЕЙЧАС
           </Button>
         </Stack>

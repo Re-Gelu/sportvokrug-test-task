@@ -1,36 +1,20 @@
-import { VideostandEventResponse } from "@/shared/api";
+import { Clock } from "@/features";
+import { VIDEOSTAND_EVENTS_QUERY, VideostandEventResponse } from "@/shared/api";
 import configuration from "@/shared/configuration";
-import { ActiveEventScreen, Clock, CountdownEventScreen } from "@/widgets";
-import { gql, useQuery } from "@apollo/client";
+import { ActiveEventScreen, CountdownEventScreen } from "@/widgets";
+import { useQuery } from "@apollo/client";
 import { Loader } from "@mantine/core";
 
 function App() {
-  const { loading, error, data } = useQuery<VideostandEventResponse>(
-    gql`
-      query videostandEvents($videostand_id: ID!) {
-        videostandEvents(videostand_id: $videostand_id) {
-          current_and_upcoming {
-            title
-            is_main
-            dt_start
-            dt_end
-            dt_create
-          }
-          finished {
-            title
-            is_main
-            dt_start
-            dt_end
-            dt_create
-          }
-        }
-      }
-    `,
+  const { loading, error } = useQuery<VideostandEventResponse>(
+    VIDEOSTAND_EVENTS_QUERY,
     {
       variables: { videostand_id: "6" },
-      pollInterval: configuration.API_POLL_INTERVAL,
+      pollInterval: configuration.API_POLL_INTERVAL, // Обновление в “реальном времени”. Раз в N мс
     }
   );
+
+  const data = testData;
 
   if (loading) return <Loader size={100} />;
 
@@ -92,7 +76,7 @@ const testData = {
         dt_end: "2024-09-06T23:59:00+03:00",
         dt_create: "2024-01-31T02:39:01+03:00",
       },
-      /* {
+      /*  {
         __typename: "VideostandEvent", // 1
         title: "Первенство Москвы",
         is_main: true,

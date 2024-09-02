@@ -1,16 +1,18 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { Group, GroupProps, RingProgress, Text } from "@mantine/core";
+import { Group, GroupProps } from "@mantine/core";
 
-export type RingCountdownProps = {
-  targetDate: Date;
-} & GroupProps;
+import { RingProgress } from "../features/ring-progress";
 
-const defaultRingProgress = {
+const defaultRingProgressProps = {
   size: 160,
   thickness: 14,
   roundCaps: true,
 };
+
+export type RingCountdownProps = {
+  targetDate: Date;
+} & GroupProps;
 
 export function RingCountdown({ targetDate, ...props }: RingCountdownProps) {
   const calculateTimeLeft = useCallback(() => {
@@ -48,47 +50,31 @@ export function RingCountdown({ targetDate, ...props }: RingCountdownProps) {
   return (
     <Group justify="center" {...props}>
       <RingProgress
-        label={
-          <Text size="xs" ta="center">
-            {timeLeft.days} дн.
-          </Text>
-        }
-        key={`${timeLeft.days} дн.`}
-        sections={[{ value: dayPercentage, color: "blue" }]}
-        {...defaultRingProgress}
+        value={dayPercentage}
+        color="blue"
+        label={`${timeLeft.days} дн.`}
+        {...defaultRingProgressProps}
       />
 
       <RingProgress
-        label={
-          <Text size="xs" ta="center">
-            {timeLeft.hours} ч.
-          </Text>
-        }
-        key={`${timeLeft.hours} ч.`}
-        sections={[{ value: hourPercentage, color: "orange" }]}
-        {...defaultRingProgress}
+        value={hourPercentage}
+        color="orange"
+        label={`${timeLeft.hours} ч.`}
+        {...defaultRingProgressProps}
       />
 
       <RingProgress
-        label={
-          <Text size="xs" ta="center">
-            {timeLeft.minutes} мин.
-          </Text>
-        }
-        key={`${timeLeft.minutes} мин.`}
-        sections={[{ value: minutePercentage, color: "yellow" }]}
-        {...defaultRingProgress}
+        value={minutePercentage}
+        color="yellow"
+        label={`${timeLeft.minutes} мин.`}
+        {...defaultRingProgressProps}
       />
 
       <RingProgress
-        label={
-          <Text size="xs" ta="center">
-            {timeLeft.seconds} сек.
-          </Text>
-        }
-        key={`${timeLeft.seconds} сек.`}
-        sections={[{ value: secondPercentage, color: "cyan" }]}
-        {...defaultRingProgress}
+        value={secondPercentage}
+        color="cyan"
+        label={`${timeLeft.seconds} сек.`}
+        {...defaultRingProgressProps}
       />
     </Group>
   );

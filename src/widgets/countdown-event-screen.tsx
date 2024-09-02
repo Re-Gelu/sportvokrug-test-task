@@ -1,9 +1,8 @@
-import { formatEventDate, RingCountdown } from "@/features";
+import { formatEventDate, NextEventInfo, SmallClock } from "@/features";
 import { VideostandEvent } from "@/shared/api";
 import { Paper, Stack, Text, Title } from "@mantine/core";
 
-import { SmallClock } from "./clock";
-import { NextEventInfo } from "./next-event-info";
+import { RingCountdown } from "./ring-countdown";
 
 export type CountdownEventScreenProps = {
   event: VideostandEvent;

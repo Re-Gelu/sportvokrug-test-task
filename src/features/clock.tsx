@@ -32,7 +32,7 @@ export function Clock(props: PaperProps) {
       {...props}
     >
       <Stack gap={0} px="xl">
-        <Text fz={96} ta="center">
+        <Text fz={96} ta="center" fw="bold">
           {padTo2Digits(date.getHours())}
           {":"}
           {padTo2Digits(date.getMinutes())}
@@ -68,7 +68,7 @@ export function SmallClock(props: StackProps) {
 
   return (
     <Stack gap="xs" {...props}>
-      <Text fz={96} ta="center">
+      <Text fz={96} ta="center" fw="bold">
         {padTo2Digits(date.getHours())}
         {":"}
         {padTo2Digits(date.getMinutes())}
