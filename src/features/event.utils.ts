@@ -1,7 +1,5 @@
 import { VideostandEvent } from "@/shared/api";
 
-// Утилиты для работы с событиями
-
 export const sortEventsByStartDate = (events: VideostandEvent[]) =>
   events.sort(
     (event1, event2) =>
