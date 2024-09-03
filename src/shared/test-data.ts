@@ -1,3 +1,5 @@
+// В App.tsx заменяем data от useQuery на это
+
 export default {
   videostandEvents: {
     current_and_upcoming: [
