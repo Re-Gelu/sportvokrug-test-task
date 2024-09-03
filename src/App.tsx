@@ -13,10 +13,8 @@ import { ActiveEventScreen, CountdownEventScreen } from "@/widgets";
 import { useQuery } from "@apollo/client";
 import { Loader } from "@mantine/core";
 
-import data from "./shared/test-data";
-
 function App() {
-  const { loading, error } = useQuery<VideostandEventResponse>(
+  const { loading, error, data } = useQuery<VideostandEventResponse>(
     VIDEOSTAND_EVENTS_QUERY,
     {
       variables: { videostand_id: "6" },
