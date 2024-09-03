@@ -1,4 +1,4 @@
-export const testData = {
+export default {
   videostandEvents: {
     current_and_upcoming: [
       {
