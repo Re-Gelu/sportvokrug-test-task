@@ -1,7 +1,7 @@
 import { VideostandEvent } from "@/shared/api";
 
 export const sortEventsByStartDate = (events: VideostandEvent[]) =>
-  events.sort(
+  [...events].sort(
     (event1, event2) =>
       new Date(event1.dt_start).getTime() - new Date(event2.dt_start).getTime()
   );
