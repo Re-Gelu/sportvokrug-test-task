@@ -5,7 +5,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import { apolloClient } from "@/shared/api";
-import { theme } from "@/shared/theme.ts";
+import { theme } from "@/shared/theme";
 import { ApolloProvider } from "@apollo/client";
 import { Center, MantineProvider } from "@mantine/core";
 
