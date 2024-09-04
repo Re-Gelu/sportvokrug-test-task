@@ -1,50 +1,27 @@
-# React + TypeScript + Vite
+# Тестовое задание - Спорт вокруг
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Стэк: Vite + React + SWC, Apollo GraphQL, Mantine UI
 
-Currently, two official plugins are available:
+Проект задеплоен: https://sportvokrug-test-task.vercel.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Настройка окружения
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```
+VITE_API_URL = "https://beta.sosportom.ru/graphql/"
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Остальное изменяется в ```shared/configuration.ts```
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Установка зависимостей и запуск
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
 ```
+$ yarn install
+
+$ yarn dev 
+```
+
+## Скрины
+
+![image](https://github.com/user-attachments/assets/c6b3ffba-a52d-4946-b1ea-6ddd7f972ffe)
+![image](https://github.com/user-attachments/assets/7af5b75d-07fc-40a2-976f-e551e7c887b1)
+![image](https://github.com/user-attachments/assets/2ac56871-8779-4440-8273-b1a39c0d8043)
